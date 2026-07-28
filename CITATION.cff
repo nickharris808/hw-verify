@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+title: "hw-verify: a unified front end for the hw-verify hardware security toolkit"
+message: "If you use this in academic work, please cite it."
+type: software
+authors:
+  - alias: nickharris808
+    website: "https://github.com/nickharris808"
+repository-code: "https://github.com/nickharris808/hw-verify"
+url: "https://huggingface.co/spaces/nickh007/hw-verify"
+abstract: >-
+  One install and one command over three checkers: constant-time RTL, first-order masking, and bounds-check patch completeness. Delegates to each tool's own CLI so there is a single implementation of every flag, and passes exit codes through unchanged -- including the third code that distinguishes 'no verdict was reached' from 'leaky'.
+keywords:
+  - hardware security
+  - constant-time
+  - side-channel
+  - formal verification
+  - cli
+license: Apache-2.0
+version: "0.1.0"
+date-released: "2026-07-28"
