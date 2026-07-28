@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hw-verify"
+version = "0.1.0"
+description = "One install and one command for the hw-verify toolkit: constant-time RTL, masking, and patch completeness."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "nickharris808" }]
+keywords = ["hardware", "verilog", "constant-time", "side-channel", "formal-verification", "security"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Security",
+]
+dependencies = [
+  # Not on PyPI yet, so referenced from their public repositories: this is what makes
+  # `pip install .` work today. PEP 508 direct references cannot be uploaded to PyPI,
+  # so replace these with plain version specifiers when the three are published.
+  "ctbench @ git+https://github.com/nickharris808/ctbench@main",
+  "ct-mask @ git+https://github.com/nickharris808/ct-mask@main",
+  "patchproof @ git+https://github.com/nickharris808/patchproof@main",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "ruff>=0.14,<0.15"]
+
+[project.scripts]
+hw-verify = "hwverify_cli.main:main"
+
+[project.urls]
+Homepage = "https://github.com/nickharris808/hw-verify"
+Demo = "https://huggingface.co/spaces/nickh007/hw-verify"
+
+[tool.setuptools.packages.find]
+include = ["hwverify_cli*"]
+
+[tool.ruff]
+line-length = 100
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF", "PL", "PERF", "ISC"]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests import fixture paths lazily (the packages must be importable first), and the
+# exit codes they assert on ARE the meaningful values -- naming 0/1/2 as constants
+# would make the assertions less readable, not more.
+"tests/*" = ["PLC0415", "PLR2004"]
